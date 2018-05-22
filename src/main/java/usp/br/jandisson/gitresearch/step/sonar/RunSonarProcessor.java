@@ -40,7 +40,7 @@ public class RunSonarProcessor implements ItemProcessor<Project,Project> {
     @Value("${gitresearch.tempdir}")
     private String tempdir;
 
-    private int frameNumber = 10;
+    private final int  frameNumber = 10;
 
     private LogOutput outPutlogger;
 
@@ -73,11 +73,14 @@ public class RunSonarProcessor implements ItemProcessor<Project,Project> {
         frameSize = numberOfCommits /this.frameNumber;
         for(int i =0 ; i < this.frameNumber ; i++)
         {
+            try {
             git.checkout().setCreateBranch(false).setName(defaultBranchName).setForce(true).call();
             /** Avoid Sonnar Bug */
             Thread.sleep(1000);
+            logger.info("Checkout next version: "+defaultBranchName);
             ObjectId Myhead = git.getRepository().resolve("HEAD~" + (frameSize * (this.frameNumber - i - 1)));
-            try {
+            git.checkout().setForce(true).setName(Myhead.getName()).call();
+
                 executeSonarScanner(project,projectDirectory, i + 1);
             }catch(Exception e)
             {
@@ -125,6 +128,7 @@ public class RunSonarProcessor implements ItemProcessor<Project,Project> {
 
     private int countNumberOfCommits(Repository repository,String defaultBranchName) throws IOException {
 
+        logger.info("Counting the number of commits.");
         int numberOfCommits = 0 ;
         RevWalk walk = new RevWalk(repository);
         RevCommit head = walk.parseCommit(repository.findRef(defaultBranchName).getObjectId());

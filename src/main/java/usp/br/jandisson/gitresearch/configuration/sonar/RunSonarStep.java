@@ -34,8 +34,6 @@ public class RunSonarStep {
         return executor;
     }
 
-
-
     @Bean
     protected Step runSonar(@Qualifier("getRepositoryItemReader") ItemReader<Project> reader,
                                              TaskExecutor taskExecutor,
@@ -45,8 +43,8 @@ public class RunSonarStep {
                 .reader(reader)
                 .processor(processor)
                 .writer(writer)
-                .taskExecutor(taskExecutor)
-                .throttleLimit(8)
+               // .taskExecutor(taskExecutor)
+               // .throttleLimit(8)
                 .build();
     }
 }
