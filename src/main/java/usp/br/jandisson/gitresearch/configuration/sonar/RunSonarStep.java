@@ -30,7 +30,7 @@ public class RunSonarStep {
     @Bean
     public TaskExecutor taskExecutor(){
         SimpleAsyncTaskExecutor executor= new SimpleAsyncTaskExecutor("GIT RESEARCH ");
-        executor.setConcurrencyLimit(30);
+        executor.setConcurrencyLimit(8);
         return executor;
     }
 
@@ -41,12 +41,12 @@ public class RunSonarStep {
                                              TaskExecutor taskExecutor,
                                                    ItemWriter<Project> writer) {
         return steps.get("download_repository")
-                .<Project, Project> chunk(100)
+                .<Project, Project> chunk(8)
                 .reader(reader)
                 .processor(processor)
                 .writer(writer)
                 .taskExecutor(taskExecutor)
-                .throttleLimit(30)
+                .throttleLimit(8)
                 .build();
     }
 }

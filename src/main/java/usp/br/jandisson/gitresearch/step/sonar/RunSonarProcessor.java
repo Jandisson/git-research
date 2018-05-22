@@ -84,6 +84,7 @@ public class RunSonarProcessor implements ItemProcessor<Project,Project> {
                 logger.error("Fail to execute Sonar: "+e.getMessage());
             }
         }
+         removeRepositoryCopy(project);
         return project;
     }
 
@@ -98,6 +99,10 @@ public class RunSonarProcessor implements ItemProcessor<Project,Project> {
         FileUtils.copyDirectory(srcDir, destDir);
 
         return destination;
+    }
+
+    private void removeRepositoryCopy(Project project) throws IOException {
+        FileUtils.deleteDirectory(new File(this.tempdir+File.separator+project.getId()));
     }
 
     private void executeSonarScanner(Project project,String temporaryProjectFolder,int version){
