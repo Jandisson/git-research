@@ -1,13 +1,13 @@
 ----------------------------------------------------------------
-Mon May 21 21:48:57 BRT 2018:
-Booting Derby version The Apache Software Foundation - Apache Derby - 10.14.1.0 - (1808820): instance a816c00e-0163-8552-0b50-000010af4148 
-on database directory /home/jandisson/DOUTORADO/database with class loader org.springframework.boot.loader.LaunchedURLClassLoader@31cefde0 
-Loaded from jar:file:/home/jandisson/DOUTORADO/git-research/target/git-research-0.0.1-SNAPSHOT.jar!/BOOT-INF/lib/derby-10.14.1.0.jar!/
+Sun May 27 00:25:27 GMT-03:00 2018:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.14.1.0 - (1808820): instance a816c00e-0163-9fa1-1b8a-0000046e8d98 
+on database directory F:\testes2\database with class loader sun.misc.Launcher$AppClassLoader@18b4aac2 
+Loaded from file:/C:/Users/jandi/.m2/repository/org/apache/derby/derby/10.14.1.0/derby-10.14.1.0.jar
 java.vendor=Oracle Corporation
-java.runtime.version=1.8.0_171-b10
-user.dir=/home/jandisson/DOUTORADO/git-research
-os.name=Linux
+java.runtime.version=1.8.0_91-b15
+user.dir=F:\git-research
+os.name=Windows 10
 os.arch=amd64
-os.version=3.10.0-123.el7.x86_64
+os.version=10.0
 derby.system.home=null
 Database Class Loader started - derby.database.classpath=''

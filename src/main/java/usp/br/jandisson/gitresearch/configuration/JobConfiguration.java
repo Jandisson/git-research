@@ -28,7 +28,9 @@ public class JobConfiguration {
             @Qualifier("normalizeProjectDescriptionText") Step normalize,
             @Qualifier("prepareCorpus") Step prepareCorpus,
             @Qualifier("runLda") Step runLda,
-            @Qualifier("runSonar") Step runSonar
+            @Qualifier("runSonar") Step runSonar,
+            @Qualifier("readSonar") Step readSonar
+
 
             ) {
         return this.jobs.get("extractDataJob")
