@@ -40,7 +40,7 @@ public class RunSonarProcessor implements ItemProcessor<Project,Project> {
     @Value("${gitresearch.tempdir}")
     private String tempdir;
 
-    private final int  frameNumber = 10;
+    private final int  frameNumber = 5;
 
     private LogOutput outPutlogger;
 
