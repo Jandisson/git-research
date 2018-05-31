@@ -44,16 +44,21 @@ public class RunSonarProcessor implements ItemProcessor<Project,Project> {
 
     private LogOutput outPutlogger;
 
+    private EmbeddedScanner scanner;
+    
+     
     Logger logger = LoggerFactory.getLogger(RunSonarProcessor.class);
 
-
+   
     public RunSonarProcessor(){
         super();
+       
+ 
         this.outPutlogger = new LogOutput() {
 
             @Override
             public void log(String s, Level level) {
-                logger.info(s);
+              logger.info(s);
             }
         };
     }
@@ -81,6 +86,7 @@ public class RunSonarProcessor implements ItemProcessor<Project,Project> {
             ObjectId Myhead = git.getRepository().resolve("HEAD~" + (frameSize * (this.frameNumber - i - 1)));
             git.checkout().setForce(true).setName(Myhead.getName()).call();
 
+                this.initializeSonar();
                 executeSonarScanner(project,projectDirectory, i + 1);
             }catch(Exception e)
             {
@@ -108,6 +114,11 @@ public class RunSonarProcessor implements ItemProcessor<Project,Project> {
         FileUtils.deleteDirectory(new File(this.tempdir+File.separator+project.getId()));
     }
 
+    private void initializeSonar(){
+        this.scanner = EmbeddedScanner.create("", "", this.outPutlogger);
+        this.scanner.start();
+    }
+
     private void executeSonarScanner(Project project,String temporaryProjectFolder,int version){
 
         HashMap prop = new HashMap();
@@ -119,11 +130,10 @@ public class RunSonarProcessor implements ItemProcessor<Project,Project> {
         prop.put("sonar.sources",temporaryProjectFolder + File.separator +".");
         prop.put("sonar.java.binaries", temporaryProjectFolder);
         prop.put("sonar.host.url", this.sonarUrl);
+        prop.put("sonar.language", "java");
 
 
-        EmbeddedScanner scanner = EmbeddedScanner.create("", "", this.outPutlogger);
-        scanner.start();
-        scanner.execute(prop);
+        this.scanner.execute(prop);
     }
 
     private int countNumberOfCommits(Repository repository,String defaultBranchName) throws IOException {
