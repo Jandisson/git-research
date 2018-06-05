@@ -34,7 +34,7 @@ public class JobConfiguration {
 
             ) {
         return this.jobs.get("extractDataJob")
-                .start(runSonar)
+                .start(readSonar)
                 //.start(prepareCorpus)
                // .next(normalize)
                 .build();

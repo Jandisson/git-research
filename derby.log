@@ -1,6 +1,6 @@
 ----------------------------------------------------------------
-Thu May 31 06:15:52 UTC 2018:
-Booting Derby version The Apache Software Foundation - Apache Derby - 10.14.1.0 - (1808820): instance a816c00e-0163-b4d6-9643-000504c4ba10 
+Tue Jun 05 00:03:20 UTC 2018:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.14.1.0 - (1808820): instance a816c00e-0163-cd41-5166-0004a7b686f0 
 on database directory /home/centos/DOUTORADO/database with class loader org.springframework.boot.loader.LaunchedURLClassLoader@49c2faae 
 Loaded from jar:file:/home/centos/DOUTORADO/git-research/target/git-research-0.0.1-SNAPSHOT.jar!/BOOT-INF/lib/derby-10.14.1.0.jar!/
 java.vendor=Oracle Corporation

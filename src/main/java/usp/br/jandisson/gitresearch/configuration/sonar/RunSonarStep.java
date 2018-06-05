@@ -10,7 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.task.SimpleAsyncTaskExecutor;
+import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.core.task.TaskExecutor;
 import usp.br.jandisson.gitresearch.model.Project;
 import usp.br.jandisson.gitresearch.step.download.DownloadProcessor;
@@ -29,9 +29,12 @@ public class RunSonarStep {
 
     @Bean
     public TaskExecutor taskExecutor(){
-        SimpleAsyncTaskExecutor executor= new SimpleAsyncTaskExecutor("GIT RESEARCH ");
-        executor.setConcurrencyLimit(4);
-        return executor;
+        
+        ThreadPoolTaskExecutor taskExecutor = new ThreadPoolTaskExecutor();
+    taskExecutor.setCorePoolSize(16);
+    taskExecutor.setThreadNamePrefix("GIT RESEARCH-");
+    return taskExecutor;
+
     }
 
     @Bean
@@ -39,12 +42,12 @@ public class RunSonarStep {
                                              TaskExecutor taskExecutor,
                                                    ItemWriter<Project> writer) {
         return steps.get("run_sonar")
-                .<Project, Project> chunk(4)
+                .<Project, Project> chunk(1000)
                 .reader(reader)
                 .processor(processor)
                 .writer(writer)
                 .taskExecutor(taskExecutor)
-                .throttleLimit(4)
+                .throttleLimit(16)
                 .build();
     }
 }
