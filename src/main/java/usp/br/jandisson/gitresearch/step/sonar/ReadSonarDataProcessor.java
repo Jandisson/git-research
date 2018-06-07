@@ -47,8 +47,8 @@ public class ReadSonarDataProcessor implements ItemProcessor<Project,Project> {
 
         RestTemplate restTemplate = new RestTemplate();
         MultiValueMap<String, String> map = new LinkedMultiValueMap<>();
-        //map.add("component",String.format("Project%s",project.getId()));
-        map.add("component",String.format("Project"));
+        map.add("component",String.format("Project%s",project.getId()));
+        //map.add("component",String.format("Project"));
         map.add("metrics",String.format(String.join(",",metricts)));
         HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<>(map, headers);
 
